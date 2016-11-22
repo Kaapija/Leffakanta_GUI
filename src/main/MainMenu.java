@@ -55,6 +55,7 @@ public class MainMenu extends javax.swing.JFrame {
         printFirst = new javax.swing.JLabel();
         printRating = new javax.swing.JLabel();
         printLast = new javax.swing.JLabel();
+        clear = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -182,6 +183,13 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        clear.setText("Clear");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,10 +200,11 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(commit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -211,7 +220,9 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(clear))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -236,6 +247,7 @@ public class MainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Choose only 1 search category please.", "Try again", JOptionPane.ERROR_MESSAGE);
             
         } else{
+            howMany = 0;
             conn = MysqlConnect.ConnectDB();
             String sql = "Select * From elokuvat where nimi=?";
             String sql2 = "SELECT Etunimi, Sukunimi\n" +
@@ -264,12 +276,23 @@ public class MainMenu extends javax.swing.JFrame {
                 while (rs.next()) {
                     this.printFirst.setText(rs.getString("Etunimi"));
                     this.printLast.setText(rs.getString("Sukunimi"));
+                    System.out.println(rs.getString("Etunimi"));
+                    System.out.println(rs.getString("Sukunimi"));
                 }
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, "Does not compute!", "Try again", JOptionPane.ERROR_MESSAGE);
             }
             }
     }//GEN-LAST:event_commitActionPerformed
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        this.printName.setText("");
+        this.printYear.setText("");
+        this.printBorrow.setText("");
+        this.printRating.setText(""); 
+        this.printFirst.setText("");
+        this.printLast.setText("");
+    }//GEN-LAST:event_clearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,6 +331,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField actor;
+    private javax.swing.JButton clear;
     private javax.swing.JButton commit;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
